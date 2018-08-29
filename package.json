@@ -1,0 +1,40 @@
+{
+  "name": "react_webpack_babel_boilerplate",
+  "version": "1.0.0",
+  "app_name": "RWBB",
+  "app_port": 3000,
+  "description": "A own made boilerplate with all needed functionality for exellio",
+  "main": "index.js",
+  "author": "Lucas Recknagel",
+  "license": "UNLICENSE",
+  "dependencies": {
+    "history": "^4.7.2",
+    "i18next": "^11.6.0",
+    "i18next-xhr-backend": "^1.5.1",
+    "mobx": "^5.1.0",
+    "mobx-react": "^5.2.5",
+    "mobx-react-router": "^4.0.4",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-i18next": "^7.11.0",
+    "react-router-dom": "^4.3.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.0",
+    "chalk": "^2.4.1",
+    "eslint": "^5.4.0",
+    "fs-extra": "^7.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "open-browser-webpack-plugin": "^0.0.5",
+    "webpack": "^4.17.1",
+    "webpack-dev-server": "^3.1.6",
+    "webpack-merge": "^4.1.4"
+  },
+  "scripts": {
+    "start": "REACT_APP_VERSION=$npm_package_version REACT_APP_NAME=$npm_package_app_name node scripts/start.js"
+  }
+}

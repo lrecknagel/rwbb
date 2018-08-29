@@ -1,0 +1,15 @@
+# dependencies
+/node_modules
+
+# testing
+/coverage
+**/__snapshots__/*
+
+# production
+./build/
+
+# misc
+.DS_Store
+.env
+npm-debug.log
+.idea/
