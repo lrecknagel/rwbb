@@ -41,7 +41,6 @@ devServer.listen(DEFAULT_PORT, HOST, err => {
   }
 
   console.log(chalk.cyan('Starting the development server...\n'));
-  // openBrowser(urls.localUrlForBrowser);
 });
 
 ['SIGINT', 'SIGTERM'].forEach( sig => {

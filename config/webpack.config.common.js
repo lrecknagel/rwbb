@@ -1,10 +1,12 @@
 const path = require('path');
-const paths = require('./paths');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const env = getClientEnvironment('');
+
+const devMode = process.env.NODE_ENV === 'development';
 
 module.exports = {
   entry: paths.appIndexJs,
@@ -21,24 +23,35 @@ module.exports = {
     ),
     extensions: ['.js', '.json', '.jsx'],
   },
-  module: {
-    rules: [{
-      test: /\.(js|jsx)$/,
-      exclude: /(node_modules)/,
-      use: [{
-        loader: 'babel-loader',
-      }],
-    }],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: paths.appHtml,
-    }),
-    new webpack.DefinePlugin(env.stringified),
-  ],
   stats: {
     colors: true,
   },
   devtool: 'source-map',
+  plugins: [
+    new webpack.DefinePlugin(env.stringified),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+    }),
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.scss$/,
+        include: paths.appSrc,
+        use: ['style-loader', 'css-loader', 'sass-loader?sourceMap=true'],
+      },
+    ],
+  },
 };
