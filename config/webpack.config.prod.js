@@ -4,6 +4,9 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 // const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
+const CompressionPlugin = require('compression-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 const InterpolateHtmlPlugin = require('../scripts/helper/InterpolateHtmlPlugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
@@ -24,6 +27,26 @@ module.exports = {
     // Point sourcemap entries to original disk location
     devtoolModuleFilenameTemplate: info =>
       path.relative(paths.appSrc, info.absoluteResourcePath),
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new UglifyJsPlugin({
+        sourceMap: true,
+        uglifyOptions: {
+          warnings: false,
+          compress: {
+            ecma: 6,
+          },
+          output: {
+            comments: false,
+          },
+        },
+      }),
+    ],
+    splitChunks: {
+      chunks: 'all',
+    },
   },
   module: {
     strictExportPresence: true,
@@ -129,10 +152,10 @@ module.exports = {
       // https://github.com/facebookincubator/create-react-app/issues/2235
       stripPrefix: `${ paths.appBuild.replace(/\\/g, '/') }/`,
     }),
+    new CompressionPlugin({
+      algorithm: 'gzip',
+    }),
     // THIS HAS TO BE THE LAST!
     new InterpolateHtmlPlugin(env.raw),
   ],
-  optimization: {
-    minimize: true,
-  },
 };

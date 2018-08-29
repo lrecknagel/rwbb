@@ -26,6 +26,7 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.0",
     "chalk": "^2.4.1",
+    "compression-webpack-plugin": "^1.1.12",
     "css-loader": "^1.0.0",
     "escape-string-regexp": "^1.0.5",
     "eslint": "^5.4.0",
@@ -40,14 +41,19 @@
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
     "sw-precache-webpack-plugin": "^0.11.5",
+    "uglifyjs-webpack-plugin": "^1.3.0",
     "url-loader": "^1.1.1",
     "webpack": "^4.17.1",
+    "webpack-bundle-analyzer": "^2.13.1",
+    "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.6",
     "webpack-manifest-plugin": "^2.0.3",
     "webpack-merge": "^4.1.4"
   },
   "scripts": {
     "start": "REACT_APP_VERSION=$npm_package_version REACT_APP_NAME=$npm_package_app_name node scripts/start.js",
-    "build": "REACT_APP_VERSION=$npm_package_version REACT_APP_NAME=$npm_package_app_name node scripts/build.js"
+    "build": "REACT_APP_VERSION=$npm_package_version REACT_APP_NAME=$npm_package_app_name node scripts/build.js",
+    "analyze": "./node_modules/webpack-bundle-analyzer/lib/bin/analyzer.js",
+    "genStats": "./node_modules/webpack/bin/webpack.js --profile --json > stats.json"
   }
 }
