@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
+import { inject, observer } from 'mobx-react';
 
 import './App.scss';
+@inject('store')
+@observer
 class App extends Component {
+
+  async componentDidMount() {
+    console.log(this.props.store);
+    const r = await this.props.store.detailStore.fetchData();
+    console.log(r);
+  }
+
   render() {
 
     const APP_NAME = process.env.REACT_APP_NAME
 
     return (
-      <h1 className='app'>HELLO at { APP_NAME }</h1>
+      <div>
+        <h1 className='app'>HELLO at { APP_NAME }</h1>
+        <p>{ JSON.stringify(this.props.store.detailStore.data) }</p>
+      </div>
     );
   }
 }
