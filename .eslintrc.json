@@ -9,16 +9,14 @@
   "parserOptions": {
     "ecmaVersion": 9,
     "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
+      "jsx": true
     },
     "sourceType": "module"
   },
-  "globals": {
-    "exinfo": false,
-    "exwarn": false,
-    "exerror": false
-  },
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
   "rules": {
     "array-callback-return": 2,
     "arrow-body-style": ["error", "as-needed"],
@@ -90,6 +88,27 @@
     "spaced-comment": ["error", "always"],
     "template-curly-spacing": [2, "always"],
     "valid-jsdoc": 1,
-    "yoda": 2
+    "yoda": 2,
+    "react/forbid-foreign-prop-types": ["warn", { allowInPropTypes: true }],
+    "react/jsx-no-comment-textnodes": "warn",
+    "react/jsx-no-duplicate-props": ["warn", { ignoreCase: true }],
+    "react/jsx-no-target-blank": "warn",
+    "react/jsx-no-undef": "error",
+    "react/jsx-pascal-case": [
+      "warn",
+      {
+        "allowAllCaps": true,
+        "ignore": [],
+      },
+    ],
+    "react/jsx-uses-react": "warn",
+    "react/jsx-uses-vars": "warn",
+    "react/no-danger-with-children": "warn",
+    "react/no-deprecated": "warn",
+    "react/no-direct-mutation-state": "warn",
+    "react/no-is-mounted": "warn",
+    "react/react-in-jsx-scope": "error",
+    "react/require-render-return": "error",
+    "react/style-prop-object": "warn",
   }
 }
