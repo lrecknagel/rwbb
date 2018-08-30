@@ -1,6 +1,7 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
@@ -26,7 +27,6 @@ module.exports = {
   stats: {
     colors: true,
   },
-  devtool: 'source-map',
   plugins: [
     new webpack.DefinePlugin(env.stringified),
     new MiniCssExtractPlugin({
@@ -34,6 +34,10 @@ module.exports = {
       // both options are optional
       filename: devMode ? '[name].css' : '[name].[hash].css',
       chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+    }),
+    new ProgressBarPlugin({
+      format: 'Build [:bar] :percent (:elapsed seconds)',
+      clear: false,
     }),
   ],
   module: {
@@ -43,7 +47,17 @@ module.exports = {
         use: [
           devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
-          'postcss-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              autoprefixer: {
+                  browsers: ["last 2 versions"]
+              },
+              plugins: () => [
+                  autoprefixer
+              ]
+            },
+          },
           'sass-loader',
         ],
       },

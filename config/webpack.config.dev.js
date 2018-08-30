@@ -10,6 +10,7 @@ const env = getClientEnvironment('');
 
 module.exports = browserUrl => ({
   mode: 'development',
+  devtool: 'cheap-module-eval-source-map',
   module: {
     strictExportPresence: true,
     rules: [

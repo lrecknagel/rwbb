@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 // const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const CompressionPlugin = require('compression-webpack-plugin');
@@ -19,6 +20,7 @@ const publicUrl = publicPath.slice(0, -1);
 module.exports = {
   mode: 'production',
   bail: true,
+  devtool: 'source-map',
   output: {
     filename: 'static/js/[name].[chunkhash:8].js',
     chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
@@ -29,24 +31,24 @@ module.exports = {
       path.relative(paths.appSrc, info.absoluteResourcePath),
   },
   optimization: {
-    minimize: true,
+    runtimeChunk: false,
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
     minimizer: [
       new UglifyJsPlugin({
-        sourceMap: true,
-        uglifyOptions: {
-          warnings: false,
-          compress: {
-            ecma: 6,
-          },
-          output: {
-            comments: false,
-          },
-        },
+        cache: true,
+        parallel: true,
+        sourceMap: true
       }),
+      new OptimizeCSSAssetsPlugin({}),
     ],
-    splitChunks: {
-      chunks: 'all',
-    },
   },
   module: {
     strictExportPresence: true,
@@ -153,7 +155,11 @@ module.exports = {
       stripPrefix: `${ paths.appBuild.replace(/\\/g, '/') }/`,
     }),
     new CompressionPlugin({
+      asset: '[path].gz[query]',
       algorithm: 'gzip',
+      test: new RegExp('\\.(js|css)$'),
+      threshold: 10240,
+      minRatio: 0.8
     }),
     // THIS HAS TO BE THE LAST!
     new InterpolateHtmlPlugin(env.raw),
