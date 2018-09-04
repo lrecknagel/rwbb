@@ -8,6 +8,7 @@ import PublicDetail from './components/PublicDetail';
 import PrivateDetail from './components/PrivateDetail';
 
 // import styles
+import 'normalize.css';
 
 const privateRouteRenderer = (token, Component, props) => {
   if (token !== null) {
