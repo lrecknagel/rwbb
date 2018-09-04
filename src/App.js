@@ -7,9 +7,7 @@ import './App.scss';
 class App extends Component {
 
   async componentDidMount() {
-    console.log(this.props.store);
-    const r = await this.props.store.detailStore.fetchData();
-    console.log(r);
+    await this.props.store.detailStore.fetchData();
   }
 
   render() {
