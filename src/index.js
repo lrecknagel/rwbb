@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'mobx-react'
 import { Router, Route } from 'react-router-dom'
-import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { I18nextProvider } from 'react-i18next';
 
@@ -17,23 +16,15 @@ import Store from './stores/Store'
 import App from './App'
 
 const browserHistory = createBrowserHistory();
-const routing = new RouterStore();
 
 // create stores
-const store = new Store(routing)
-
-const stores = {
-  routing,
-  store
-}
-
-const history = syncHistoryWithStore(browserHistory, routing);
+const store = new Store(browserHistory)
 
 // render App component and bind to div#root
 ReactDOM.render(
   <I18nextProvider i18n={ i18n }>
-    <Provider {...stores}>
-      <Router history={history} >
+    <Provider store={store}>
+      <Router history={browserHistory} >
         <Route path='/' component={App} />
       </Router>
     </Provider>
