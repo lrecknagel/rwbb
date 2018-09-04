@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
@@ -39,6 +40,13 @@ module.exports = {
       format: 'Build [:bar] :percent (:elapsed seconds)',
       clear: false,
     }),
+    new FaviconsWebpackPlugin(
+      process.env.NODE_ENV === 'dev'
+        ? './public/images/favDev.png'
+        : process.env.NODE_ENV === 'test'
+          ? './public/images/favTest.png'
+          : './public/images/favLive.png'
+    ),
   ],
   module: {
     rules: [

@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const InterpolateHtmlPlugin = require('../scripts/helper/InterpolateHtmlPlugin');
 const paths = require('./paths');
@@ -59,13 +58,6 @@ module.exports = browserUrl => ({
       inject: true,
       template: paths.appHtml,
     }),
-    // new FaviconsWebpackPlugin(
-    //   process.env.NODE_ENV === 'dev'
-    //     ? './public/favDev.png'
-    //     : process.env.NODE_ENV === 'test'
-    //       ? './public/favTest.png'
-    //       : './public/favLive.png'
-    // ),
     // THIS HAS TO BE THE LAST!
     new InterpolateHtmlPlugin(env.raw),
   ],
