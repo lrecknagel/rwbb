@@ -105,39 +105,10 @@ module.exports = {
         minifyURLs: true,
       },
     }),
-    // new FaviconsWebpackPlugin(
-    //   process.env.NODE_ENV === 'dev'
-    //     ? './public/favDev.png'
-    //     : process.env.NODE_ENV === 'test'
-    //       ? './public/favTest.png'
-    //       : './public/favLive.png'
-    // ),
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compress: {
-    //     warnings: false,
-    //     // This feature has been reported as buggy a few times, such as:
-    //     // https://github.com/mishoo/UglifyJS2/issues/1964
-    //     // We'll wait with enabling it by default until it is more solid.
-    //     reduce_vars: false,
-    //   },
-    //   output: {
-    //     comments: false,
-    //   },
-    //   sourceMap: true,
-    // }),
-    // Generate a manifest file which contains a mapping of all asset filenames
-    // to their corresponding output file so that tools can pick it up without
-    // having to parse `index.html`.
     new ManifestPlugin({
       fileName: 'asset-manifest.json',
     }),
-    // Generate a service worker script that will precache, and keep up to date,
-    // the HTML & assets that are part of the Webpack build.
     new SWPrecacheWebpackPlugin({
-      // By default, a cache-busting query parameter is appended to requests
-      // used to populate the caches, to ensure the responses are fresh.
-      // If a URL is already hashed by Webpack, then there is no concern
-      // about it being stale, and the cache-busting can be skipped.
       dontCacheBustUrlsMatching: /\.\w{8}\./,
       filename: 'service-worker.js',
       logger(message) {
@@ -150,8 +121,6 @@ module.exports = {
       minify: true,
       navigateFallback: `${ publicUrl }/index.html`,
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
-      // Work around Windows path issue in SWPrecacheWebpackPlugin:
-      // https://github.com/facebookincubator/create-react-app/issues/2235
       stripPrefix: `${ paths.appBuild.replace(/\\/g, '/') }/`,
     }),
     new CompressionPlugin({
