@@ -5,8 +5,6 @@ class DetailStore {
   @observable data = [];
 
   fetchData = () => {
-    console.log('HERE');
-    console.log(fetch);
     return new Promise( (resolve, reject) => {
       fetch('https://jsonplaceholder.typicode.com/users', {
         method: 'GET',
