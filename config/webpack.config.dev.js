@@ -11,6 +11,9 @@ const env = getClientEnvironment('');
 module.exports = browserUrl => ({
   mode: 'development',
   devtool: 'cheap-module-eval-source-map',
+  devServer: {
+    historyApiFallback: true,
+  },
   module: {
     strictExportPresence: true,
     rules: [

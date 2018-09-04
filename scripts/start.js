@@ -30,6 +30,9 @@ const webpackConfigOptions = {
   watchOptions: {
     ignored: /node_modules/,
   },
+  historyApiFallback: {
+    disableDotRule: true,
+  },
 };
 
 WebpackDevServer.addDevServerEntrypoints(webpackConfig, webpackConfigOptions);
