@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
