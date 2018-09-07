@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 const InterpolateHtmlPlugin = require('../scripts/helper/InterpolateHtmlPlugin');
 const paths = require('./paths');
@@ -60,5 +61,6 @@ module.exports = browserUrl => ({
     }),
     // THIS HAS TO BE THE LAST!
     new InterpolateHtmlPlugin(env.raw),
+    new FriendlyErrorsWebpackPlugin(),
   ],
 });
