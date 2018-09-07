@@ -33,6 +33,7 @@ const webpackConfigOptions = {
   historyApiFallback: {
     disableDotRule: true,
   },
+  overlay: true,
 };
 
 WebpackDevServer.addDevServerEntrypoints(webpackConfig, webpackConfigOptions);
